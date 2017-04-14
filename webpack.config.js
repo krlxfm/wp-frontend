@@ -41,6 +41,17 @@ var client = {
         new webpack.HotModuleReplacementPlugin({quiet: true}),
         new HtmlWebpackPlugin()
     ],
+    devServer: {
+        hot: true,
+        quiet: false,
+        clientLogLevel: 'info',
+        proxy: {
+            "/wp-json": {
+                target: "http://krlx.org",
+                changeOrigin: true
+            }
+        }
+    }
 };
 
 module.exports = Object.assign(client, base);

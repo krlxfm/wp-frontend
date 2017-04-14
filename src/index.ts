@@ -1,1 +1,1 @@
-console.log("THIS IS COMPILING");
+fetch('/wp-json/wp/v2/posts').then(r => r.text()).then(console.log);

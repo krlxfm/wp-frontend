@@ -14,8 +14,6 @@ var webpack = require('webpack');
 var webpackConfig = require('./webpack.config.js');
 var WebpackDevServer = require('webpack-dev-server');
 
-var nodemon = require('nodemon');
-
 gulp.task('client-watch', function() {
     try {
         webpackCompiler = webpack(webpackConfig);
@@ -23,9 +21,8 @@ gulp.task('client-watch', function() {
         console.log(err);
     }
 
-    new WebpackDevServer(webpackCompiler, {
-        contentBase: path.join(__dirname, "dist"),
-    }).listen(3000, 'localhost', function (err, result) {
+    let devServer = new WebpackDevServer(webpackCompiler, webpackConfig.devServer);
+    devServer.listen(3000, 'localhost', function (err, result) {
         if(err) {
             throw new gutil.PluginError('webpack-dev-server', err);
         } else {
