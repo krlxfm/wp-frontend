@@ -1,17 +1,14 @@
 {
     "compilerOptions": {
-        "module": "system",
+        "module": "commonjs",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "outFile": "../../built/local/tsc.js",
-        "sourceMap": true
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "jsx": "react",
+        "lib": ["dom", "es6"]
     },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/*.spec.ts"
-    ]
+    "include": ["src/**/*"],
+    "exclude": [ "node_modules"]
 }

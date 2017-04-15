@@ -31,7 +31,7 @@ var client = {
     entry: [
         'webpack-dev-server/client?http://localhost:3000',
         'webpack/hot/only-dev-server',
-        './src/index.ts',
+        './src/index.tsx',
     ],
     output: {
         path: path.join(process.cwd(), '/build'),
@@ -39,7 +39,7 @@ var client = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin({quiet: true}),
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin({template: 'src/index.html'})
     ],
     devServer: {
         hot: true,
