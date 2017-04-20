@@ -1,29 +1,25 @@
 import 'whatwg-fetch';
 
-export interface Post {
-    id: string;
-    title: string;
-    date: string;
-    content: string;
+class restAPI {
+    static BASE = 'wp-json/wp/v2/';
+
+    getURL = (resource: string) => `${restAPI.BASE}${resource}`;
+
+    getPosts() {
+        return fetch(this.getURL('posts'))
+            .then(r => r.json())
+            .then(r => r instanceof Array ?
+                    r.map(p => ({
+                        title: p.title.rendered,
+                        id: p.id,
+                        content: p.content.rendered,
+                        date: p.date,
+                        author_id: p.author
+                    })) : []
+            )
+    }
 }
 
-export function getPosts() {
-    return fetch('wp-json/wp/v2/posts')
-        .then(r => r.json())
-        .then(r => {
-            if(r instanceof Array) {
-                return r.map(p => ({
-                    title: p.title.rendered,
-                    id: p.id,
-                    content: p.content.rendered,
-                    date: p.date
-                }) as Post);
-            } else {
-                return [];
-            }
-        })
-        .then(posts => {
-            console.log(posts);
-            return posts;
-        });
-}
+const api = new restAPI();
+
+export default api;
