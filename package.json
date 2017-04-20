@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/krlxfm/wp-frontend#readme",
   "dependencies": {
+    "he": "^1.1.1",
     "mobx": "^3.1.9",
     "mobx-react": "^4.1.8",
     "react": "^15.5.4",

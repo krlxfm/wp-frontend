@@ -1,4 +1,5 @@
 import { observable } from 'mobx';
+import { UserModel, UserStore } from './users';
 
 interface TransportLayer { 
     getPosts: () => Promise<PostJSON[]>;
@@ -14,15 +15,15 @@ export interface PostJSON {
 
 export class PostModel {
     id: number;
-    author_id: number;
     title: string;
     date: Date;
     content: string;
+    author: UserModel;
     store: PostStore;
 
-    constructor(props: PostJSON, store: PostStore) {
+    constructor(props: PostJSON, author: UserModel, store: PostStore) {
         this.id = props.id;
-        this.author_id = props.author_id;
+        this.author = author;
         this.content = props.content;
         this.title = props.title;
         this.date = new Date(props.date);
@@ -33,9 +34,11 @@ export class PostModel {
 export class PostStore {
     @observable posts: PostModel[] = [];
     transportLayer: TransportLayer;
+    userStore: UserStore;
 
-    constructor(tl: TransportLayer) {
+    constructor(tl: TransportLayer, us: UserStore) {
         this.transportLayer = tl;
+        this.userStore = us;
         this.loadPosts();
     }
 
@@ -49,9 +52,14 @@ export class PostStore {
     public updatePosts(update: PostJSON) {
         let post = this.posts.find(p => p.id == update.id);
         if (post) {
-            Object.assign(post, update);
+            post.content = update.content;
+            post.title = update.title;
         } else {
-            this.posts.push(new PostModel(update, this));
+            let author = this.userStore.find(update.author_id);
+            if (!author) {
+                console.log(update);
+            }
+            this.posts.push(new PostModel(update, author, this));
         }
     }
 

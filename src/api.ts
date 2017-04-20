@@ -1,21 +1,35 @@
 import 'whatwg-fetch';
+import * as he from 'he';
 
 class restAPI {
     static BASE = 'wp-json/wp/v2/';
 
-    getURL = (resource: string) => `${restAPI.BASE}${resource}`;
+    protected get(resource: string, per_page = 10) {
+        let endpoint = `${restAPI.BASE}${resource}?per_page=${per_page}`;
+        return fetch(endpoint).then(r => r.json())
+    }
 
     getPosts() {
-        return fetch(this.getURL('posts'))
-            .then(r => r.json())
+        return this.get('posts', 30)
             .then(r => r instanceof Array ?
-                    r.map(p => ({
-                        title: p.title.rendered,
-                        id: p.id,
-                        content: p.content.rendered,
-                        date: p.date,
-                        author_id: p.author
-                    })) : []
+                r.map(p => ({
+                    title: he.decode(p.title.rendered),
+                    id: p.id,
+                    content: he.decode(p.content.rendered),
+                    date: p.date,
+                    author_id: p.author
+                })) : []
+            )
+    }
+
+    getUsers() {
+        return this.get('users', 50)
+            .then(r => r instanceof Array ?
+                r.map(p => ({
+                    id: p.id,
+                    slug: p.slug,
+                    name: p.name,
+                })) : []
             )
     }
 }

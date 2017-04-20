@@ -2,25 +2,14 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { observer } from 'mobx-react';
-import { PostStore, PostModel } from './stores/posts';
+import { PostStore } from './stores/posts';
+import { UserStore } from './stores/users';
+
+import { PostList } from './components/PostList';
 
 import restAPI from './api';
 
-const PostLi = (post: PostModel) => (
-    <li key={post.id}>{post.title} {post.author_id}</li>
-);
+const userStore = new UserStore(restAPI);
+const postStore = new PostStore(restAPI, userStore);
 
-@observer
-class PostList extends React.Component<{postStore: PostStore}, {}> {
-    render() {
-        let posts = this.props.postStore.posts;
-        console.log(posts[0]);
-        return (
-            <ul> {...posts.map(PostLi)} </ul>
-        );
-     }
-};
-
-const posts = new PostStore(restAPI);
-
-ReactDOM.render(<PostList postStore={posts} />, document.getElementById('react-root'));
+ReactDOM.render(<PostList postStore={postStore}/>, document.getElementById('react-root'));
