@@ -4,8 +4,8 @@ import { PostModel, PostStore } from '../stores/posts';
 
 const PostLi = (post: PostModel) => (
     <li key={post.id} className='post'>
-        <span className='title'> {post.title} </span> by
-        <span className='author'> {post.author ? post.author.name : 'none'} </span> 
+        <span className='title'><u>{post.title}</u></span> by
+        <span className='author'> {post.author ? post.author.name : 'none'}</span> 
     </li>
 );
 

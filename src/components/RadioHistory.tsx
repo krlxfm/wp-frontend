@@ -8,7 +8,7 @@ interface Props {
 }
 
 const HistoryLi = (song: Song) => (
-    <li>{song.artist} - {song.title}</li>
+    <li key={song.timestamp}>{song.artist} - {song.title}</li>
 )
 
 @observer

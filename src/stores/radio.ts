@@ -5,10 +5,11 @@ interface TransportLayer {
 }
 
 export interface Song {
-    title: string,
-    show: string,
-    artist: string,
-    album: string
+    title: string;
+    show: string;
+    artist: string;
+    album: string;
+    timestamp: string;
 }
 
 interface RadioShow {
