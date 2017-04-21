@@ -32,6 +32,15 @@ class restAPI {
                 })) : []
             )
     }
+
+    getRadioData() {
+        return fetch('data.php')
+            .then(r => r.json())
+            .then(r => ({
+                songs: r.songs,
+                shows: [r.now, ...r.next]
+            }))
+    }
 }
 
 const api = new restAPI();

@@ -21,7 +21,7 @@ var base = {
             },
             {
                 test: /\.scss$/,
-                loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
+                loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
             }
         ]
     }
@@ -48,6 +48,10 @@ var client = {
         proxy: {
             "/wp-json": {
                 target: "http://krlx.org",
+                changeOrigin: true
+            },
+            "/data.php": {
+                target: "http://live.krlx.org",
                 changeOrigin: true
             }
         }

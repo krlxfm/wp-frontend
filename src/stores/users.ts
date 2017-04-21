@@ -6,21 +6,27 @@ interface TransportLayer {
 
 export interface UserJSON {
     id: number;
-    name: string;
-    slug: string;
+    name?: string;
+    slug?: string;
 }
 
 export class UserModel {
     id: number;
-    name: string;
-    slug: string;
+    @observable name: string;
+    @observable slug: string;
+
     store: UserStore;
 
-    constructor(props: UserJSON, store: UserStore) {
-        this.id = props.id;
-        this.name = props.name;
-        this.slug = props.slug;
+    constructor(id: number, store: UserStore) {
+        this.id = id;
         this.store = store;
+    }
+
+    update(json: UserJSON) {
+        if (json.id != this.id) return;
+
+        this.slug = json.slug;
+        this.name = json.name;
     }
 }
 
@@ -39,15 +45,21 @@ export class UserStore {
     }
 
     public updateUsers(update: UserJSON) {
-        let post = this.users.find(p => p.id == update.id);
-        if (post) {
-            Object.assign(post, update);
-        } else {
-            this.users.push(new UserModel(update, this));
+        let user = this.users.find(u => u.id == update.id);
+        if (!user) {
+            user = this.create(update.id);
         }
+
+        user.update(update);
     }
 
     public find(id: number) {
         return this.users.find(u => u.id == id);
+    }
+
+    public create(id: number) {
+        let user = new UserModel(id, this);
+        this.users.push(user);
+        return user;
     }
 }

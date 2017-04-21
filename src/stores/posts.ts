@@ -15,10 +15,10 @@ export interface PostJSON {
 
 export class PostModel {
     id: number;
+    author: UserModel;
     title: string;
     date: Date;
     content: string;
-    author: UserModel;
     store: PostStore;
 
     constructor(props: PostJSON, author: UserModel, store: PostStore) {
@@ -57,8 +57,9 @@ export class PostStore {
         } else {
             let author = this.userStore.find(update.author_id);
             if (!author) {
-                console.log(update);
+                author = this.userStore.create(update.author_id);
             }
+
             this.posts.push(new PostModel(update, author, this));
         }
     }
