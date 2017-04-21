@@ -35,7 +35,7 @@ class restAPI {
 
     getRadioData() {
         return fetch('data.php')
-            .then(r => r.json())
+            .then(r => r.json() as any)
             .then(r => ({
                 songs: r.songs,
                 shows: [r.now, ...r.next]

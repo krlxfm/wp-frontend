@@ -4,7 +4,7 @@ interface TransportLayer {
     getRadioData: () => Promise<RadioJSON>;
 }
 
-interface Song {
+export interface Song {
     title: string,
     show: string,
     artist: string,
@@ -24,23 +24,22 @@ interface RadioJSON {
 }
 
 export class RadioStore {
-    @observable songs: Song[];
-    @observable shows: RadioShow[];
+    @observable songs: Song[] = [];
+    @observable shows: RadioShow[] = [];
 
     transportLayer: TransportLayer;
 
     constructor(tl: TransportLayer) {
         this.transportLayer = tl;
+        this.update();
         setInterval(this.update.bind(this), 2000);
     }
 
     update = () => {
         this.transportLayer.getRadioData()
             .then(d => {
-                console.log(d);
-                return d;
-            }).then(d => {
                 this.songs = d.songs;
                 this.shows = d.shows;
-            })    }
+            })    
+    }
 }

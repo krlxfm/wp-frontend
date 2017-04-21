@@ -6,7 +6,7 @@ import { PostStore } from './stores/posts';
 import { UserStore } from './stores/users';
 import { RadioStore }  from './stores/radio';
 
-import { PostList } from './components/PostList';
+import { App } from './components/App';
 
 import restAPI from './api';
 
@@ -17,4 +17,7 @@ const userStore = new UserStore(restAPI);
 const postStore = new PostStore(restAPI, userStore);
 const radioStore = new RadioStore(restAPI);
 
-ReactDOM.render(<PostList postStore={postStore}/>, document.getElementById('react-root'));
+ReactDOM.render(
+    <App postStore={postStore} radioStore={radioStore}/>, 
+    document.getElementById('react-root')
+);
