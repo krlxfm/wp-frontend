@@ -6,6 +6,7 @@ import { PostStore } from '../stores/posts';
 
 import { PostList } from './PostList';
 import { RadioHistory } from './RadioHistory';
+import { RadioPlayer } from './RadioPlayer';
 
 interface Props {
     radioStore: RadioStore;
@@ -19,6 +20,7 @@ export class App extends React.Component<Props, {}> {
             <div> 
                 <PostList postStore={this.props.postStore}/>
                 <RadioHistory radioStore={this.props.radioStore}/>
+                <RadioPlayer/>
             </div>
         )
     }
