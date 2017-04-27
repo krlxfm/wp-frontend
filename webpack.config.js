@@ -35,6 +35,7 @@ var client = {
     ],
     output: {
         path: path.join(process.cwd(), '/build'),
+        publicPath: '/',
         filename: 'client.js',
     },
     plugins: [
@@ -45,13 +46,16 @@ var client = {
         hot: true,
         quiet: false,
         clientLogLevel: 'info',
+        historyApiFallback: {
+            index: 'index.html'
+        },
         proxy: {
             "/wp-json": {
                 target: "http://krlx.org",
                 changeOrigin: true
             },
             "/data.php": {
-                target: "http://live.krlx.org",
+                target: "http://live.krlx.org/data.php",
                 changeOrigin: true
             }
         }

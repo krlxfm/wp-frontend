@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import * as he from 'he';
 
 class restAPI {
-    static BASE = 'wp-json/wp/v2/';
+    static BASE = '/wp-json/wp/v2';
 
     protected get(resource: string, per_page = 10) {
         let endpoint = `${restAPI.BASE}${resource}?per_page=${per_page}`;
@@ -10,7 +10,7 @@ class restAPI {
     }
 
     getPosts() {
-        return this.get('posts', 30)
+        return this.get('/posts', 30)
             .then(r => r instanceof Array ?
                 r.map(p => ({
                     title: he.decode(p.title.rendered),
@@ -23,7 +23,7 @@ class restAPI {
     }
 
     getUsers() {
-        return this.get('users', 50)
+        return this.get('/users', 50)
             .then(r => r instanceof Array ?
                 r.map(p => ({
                     id: p.id,
@@ -34,7 +34,7 @@ class restAPI {
     }
 
     getRadioData() {
-        return fetch('data.php')
+        return fetch('/data.php')
             .then(r => r.json() as any)
             .then(r => ({
                 songs: r.songs,

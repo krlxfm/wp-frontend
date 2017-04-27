@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {observer} from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
 import { RadioStore } from '../stores/radio';
 import { PostStore } from '../stores/posts';
@@ -8,11 +8,14 @@ import { PostList } from './PostList';
 import { RadioHistory } from './RadioHistory';
 import { RadioPlayer } from './RadioPlayer';
 
-interface Props {
-    radioStore: RadioStore;
-    postStore: PostStore;
+import { RouteComponentProps } from 'react-router';
+
+interface Props extends RouteComponentProps<void> {
+    radioStore?: RadioStore;
+    postStore?: PostStore;
 };
 
+@inject('postStore', 'radioStore')
 @observer
 export class App extends React.Component<Props, {}> {
     render() {

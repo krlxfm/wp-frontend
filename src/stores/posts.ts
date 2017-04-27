@@ -64,5 +64,9 @@ export class PostStore {
         }
     }
 
+    public getPost(id: number) {
+        return this.posts.find(p => p.id == id);
+    }
+
 }
 
