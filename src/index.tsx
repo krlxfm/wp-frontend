@@ -15,7 +15,7 @@ import { RadioPlayer } from './components/RadioPlayer';
 import restAPI from './api';
 
 declare function require(s: string): any;
-require('./styles/list.scss');
+require('bulma');
 
 const userStore = new UserStore(restAPI);
 const postStore = new PostStore(restAPI, userStore);
@@ -26,7 +26,7 @@ ReactDOM.render(
               postStore = {postStore} 
               radioStore = {radioStore}>
         <Router>
-            <div>
+            <div className="container">
                 <RadioPlayer/>
                 <Route exact path='/' component={App}/>
                 <Route path='/blog/:id'component={Blog}/>

@@ -28,7 +28,7 @@ export class RadioPlayer extends React.Component<{}, State> {
                 <audio src = {this.src} 
                        type = {this.type} 
                        ref = {(audio) => this.audio = audio}/>
-                <button onClick = {this.toggle}>
+                <button className="button" onClick = {this.toggle}>
                     {this.state.isPaused ? "Play" : "Pause"}
                 </button>
             </div>

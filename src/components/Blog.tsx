@@ -20,6 +20,6 @@ export class Blog extends React.Component<Blog.Props, Blog.State> {
         const id = this.props.match.params.id;
         const currPost = this.props.postStore.getPost(id);
         const content = { __html : currPost ? currPost.content : '' }
-        return <div dangerouslySetInnerHTML = {content}></div>
+        return <div className = "content" dangerouslySetInnerHTML = {content}></div>
     }
 }

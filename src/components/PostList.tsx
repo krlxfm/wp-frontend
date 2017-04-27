@@ -4,6 +4,9 @@ import { PostModel, PostStore } from '../stores/posts';
 
 import { Link } from 'react-router-dom';
 
+declare function require(s: string): any;
+require('../styles/list.scss');
+
 const PostLi = (post: PostModel) => (
     <li key={post.id} className='post'>
         <Link to={`/blog/${post.id}`} className='title'>{post.title}</Link> by
@@ -16,7 +19,7 @@ export class PostList extends React.Component<{postStore: PostStore}, {}> {
     render() {
         let posts = this.props.postStore.posts;
         return (
-            <div>
+            <div className="content">
                 Posts
                 <ul> {...posts.map(PostLi)} </ul>
             </div>

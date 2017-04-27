@@ -20,7 +20,7 @@ var base = {
                 loader: 'ts-loader'
             },
             {
-                test: /\.scss$/,
+                test: /\.s(c|a)ss$/,
                 loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
             }
         ]

@@ -6,7 +6,6 @@ import { PostStore } from '../stores/posts';
 
 import { PostList } from './PostList';
 import { RadioHistory } from './RadioHistory';
-import { RadioPlayer } from './RadioPlayer';
 
 import { RouteComponentProps } from 'react-router';
 
@@ -20,10 +19,9 @@ interface Props extends RouteComponentProps<void> {
 export class App extends React.Component<Props, {}> {
     render() {
         return (
-            <div> 
+            <div className="section"> 
                 <PostList postStore={this.props.postStore}/>
                 <RadioHistory radioStore={this.props.radioStore}/>
-                <RadioPlayer/>
             </div>
         )
     }
